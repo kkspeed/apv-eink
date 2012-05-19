@@ -1,0 +1,22 @@
+A modification of apv pdfviewer:
+http://code.google.com/p/apv/
+
+It targets Android E-ink devices, specifically Nook2.
+
+I've added some features:
+1. Gamma adjustment
+2. Memorize adjustment over page position.
+3. Memorize adjustment over page position on Even/Odd pages.
+4. Left,Right Tap action definition
+5. Enlarged page number display
+6. Partial/Full Refresh settings
+
+The same as the original APV, it is licensed under GPL V3 or other compatible 
+licenses.
+
+How to build:
+1. build the native librarys
+scripts/build-native.sh
+2. build project
+1) specify your android sdk in local.properties
+2) run ant debug
