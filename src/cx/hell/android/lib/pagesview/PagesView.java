@@ -202,6 +202,8 @@ public class PagesView extends View implements
 	private int leftToRestore;
 	private Actions actions = null;
 	private boolean nook2 = false;
+	private boolean a2move = false;
+	private boolean a2mode = false;
     private boolean eo_crop = false;
 	private int maxRefreshCnt = 10;
 	private int refreshCnt = 0;
@@ -472,12 +474,23 @@ public class PagesView extends View implements
 	int prevTop = -1;
 	int prevLeft = -1;
 
+	int forceFull = 0;
+
 	public void onDraw(Canvas canvas) {
-		if (this.nook2) {
-			if (refreshCnt < this.maxRefreshCnt) {
+		if (this.nook2 && (!this.a2mode)) {
+			Log.v(TAG, "Rcnt: " + refreshCnt + " MaxCnt: " + maxRefreshCnt);
+			if ((refreshCnt < this.maxRefreshCnt) && (forceFull == 0)) {
 				N2EpdController.setGL16Mode();
 				refreshCnt++;
 			} else {
+				if (forceFull > 0) {
+					N2EpdController.setMode(N2EpdController.REGION_APP_3,
+						N2EpdController.WAVE_GC,
+						N2EpdController.MODE_ONESHOT_ALL);
+
+					forceFull--;
+					Log.v(TAG, "Forced: " + this.forceFull);
+				}
 				refreshCnt = 0;
 			}
 		}
@@ -879,6 +892,9 @@ public class PagesView extends View implements
 	private	int last_viewx0 = 0, last_viewy0 = 0, cur_viewx0 = 0, cur_viewy0 = 0;
 
 
+	private boolean a2saved = false;
+	private boolean preva2 = false;
+
 	/**
 	 * Handle touch event coming from Android system.
 	 */
@@ -931,6 +947,13 @@ public class PagesView extends View implements
 	        	}
 	        }
 			else if (event.getAction() == MotionEvent.ACTION_MOVE){
+				if (this.a2move && !this.a2saved) {
+                    Log.v(TAG, "Setting A2");
+					this.preva2 = this.a2mode;
+					Log.v(TAG, "PrevA2: " + this.preva2);
+					this.a2saved = true;
+					setA2Mode(true);
+				}
 				if (this.mtZoomActive && event.getPointerCount() >= 2) {
 					float d = distance(event);
 					if (d > 20f) {
@@ -968,6 +991,18 @@ public class PagesView extends View implements
 			}
 			else if (event.getAction() == MotionEvent.ACTION_UP ||
 					event.getAction() == MotionEvent.ACTION_POINTER_2_UP) {
+				Log.v(TAG, "Up:!!!");
+
+				if (this.a2move && this.a2saved) {
+                    Log.v(TAG, "Restore A2");
+					Log.v(TAG, "A2: " + this.preva2);
+
+					this.a2saved = false;
+					this.forceFull = 3;
+					Log.v(TAG, "ForceFull: " + this.forceFull);
+					setA2Mode(this.preva2);
+				}
+
 				cur_viewx0 = this.left - this.width/2 + this.xoffset;
 				cur_viewy0 = this.top - this.height/2 + this.yoffset;
 				updateXYOffsets(this.xoffset + cur_viewx0 - last_viewx0,
@@ -1635,6 +1670,21 @@ public class PagesView extends View implements
 
 	public void setNook2(boolean nook2) {
 		this.nook2 = nook2;
+	}
+
+	public void setA2Move(boolean a2move) {
+		this.a2move = a2move;
+	}
+
+	public void setA2Mode(boolean a2) {
+		this.a2mode = a2;
+		if (this.a2mode) {
+			N2EpdController.enterA2Mode();
+		} else {
+			N2EpdController.setMode(N2EpdController.REGION_APP_3,
+				N2EpdController.WAVE_GC,
+				N2EpdController.MODE_ONESHOT_ALL);
+		}
 	}
 
 	public void setMaxRefreshCnt(int cnt) {

@@ -18,9 +18,9 @@
 static jintArray get_page_image_bitmap(JNIEnv *env,
       pdf_t *pdf, int pageno, int zoom_pmil, int left, int top, int rotation,
       int gray, int skipImages,
-      int *width, int *height, int igamma);
+      int *width, int *height, int igamma, int thresh);
 static void copy_alpha(unsigned char* out, unsigned char *in, unsigned int w, unsigned int h);
-static void copy_gamma(unsigned char* out, unsigned char *in, int len, int igamma);
+static void copy_gamma(unsigned char* out, unsigned char *in, int len, int igamma, int thresh);
 
 
 extern char fz_errorbuf[150*20]; /* defined in fitz/apv_base_error.c */
@@ -180,7 +180,8 @@ Java_cx_hell_android_lib_pdf_PDF_renderPage(
         jboolean gray,
         jboolean skipImages,
         jobject size,
-        jint igamma) {
+        jint igamma,
+        jint thresh) {
 
     jint *buf; /* rendered page, freed before return, as bitmap */
     jintArray jints; /* return value */
@@ -197,7 +198,7 @@ Java_cx_hell_android_lib_pdf_PDF_renderPage(
     pdf = get_pdf_from_this(env, this);
 
     jints = get_page_image_bitmap(env, pdf, pageno, zoom, left, top, rotation, gray,
-          skipImages, &width, &height, igamma);
+          skipImages, &width, &height, igamma, thresh);
 
     if (jints != NULL)
         save_size(env, size, width, height);
@@ -1051,7 +1052,7 @@ pdf_page* get_page(pdf_t *pdf, int pageno) {
 static jintArray get_page_image_bitmap(JNIEnv *env,
       pdf_t *pdf, int pageno, int zoom_pmil, int left, int top, int rotation,
       int gray, int skipImages,
-      int *width, int *height, int igamma) {
+      int *width, int *height, int igamma, int thresh) {
     unsigned char *bytes = NULL;
     fz_matrix ctm;
     double zoom;
@@ -1154,7 +1155,7 @@ static jintArray get_page_image_bitmap(JNIEnv *env,
     }
     else {
 //    copy_gamma((unsigned char*)jbuf, image->samples, image->w, image->h);
-    copy_gamma((unsigned char*)jbuf, image->samples, num_pixels * 4, igamma);
+    copy_gamma((unsigned char*)jbuf, image->samples, num_pixels * 4, igamma, thresh);
 //        memcpy(jbuf, image->samples, num_pixels * 4);
     }
     (*env)->ReleaseIntArrayElements(env, jints, jbuf, 0);
@@ -1167,14 +1168,17 @@ static jintArray get_page_image_bitmap(JNIEnv *env,
     return jints;
 }
 
-void copy_gamma(unsigned char* out, unsigned char *in, int len, int igamma) {
+void copy_gamma(unsigned char* out, unsigned char *in, int len, int igamma, int thresh) {
     if (!igamma) {
         memcpy(out, in, len);
         return;
     }
     unsigned int count;
     for (count=0; count < len; count++) {
-        *out++ = gamma_map[igamma][in[count]];
+        if (gamma_map[igamma][in[count]] >= thresh)
+            *out++ = 255;
+        else
+            *out++ = gamma_map[igamma][in[count]];
     }
 }
 

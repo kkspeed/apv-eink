@@ -33,6 +33,7 @@ public class PDFPagesProvider extends PagesProvider {
 	private float renderAhead = 2.1f;
 	private boolean doRenderAhead = true;
 	private int igamma = 3;
+	private int thresh = 255;
 	private boolean gray;
 	private int extraCache = 0;
 	private boolean omitImages;
@@ -41,6 +42,10 @@ public class PDFPagesProvider extends PagesProvider {
 
 	public void setGamma(int g) {
 		this.igamma = g;
+	}
+
+	public void setThresh(int t) {
+		this.thresh = t;
 	}
 
 	public void setGray(boolean gray) {
@@ -494,7 +499,7 @@ public class PDFPagesProvider extends PagesProvider {
 			
 			long t1 =SystemClock.currentThreadTimeMillis();
 			pagebytes = pdf.renderPage(tile.getPage(), tile.getZoom(), tile.getX(), tile.getY(), 
-					tile.getRotation(), gray, omitImages, size, this.igamma); /* native */
+					tile.getRotation(), gray, omitImages, size, this.igamma, this.thresh); /* native */
 			Log.v(TAG, "Time:"+(SystemClock.currentThreadTimeMillis()-t1));
 			if (pagebytes == null) throw new RenderingException("Couldn't render page " + tile.getPage());
 			

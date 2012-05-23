@@ -370,6 +370,8 @@ public class OpenFileActivity extends Activity implements SensorEventListener {
     		this.setTheme(android.R.style.Theme_Light);
 
 		this.pagesView.setNook2(options.getBoolean(Options.PREF_NOOK2, false));
+		this.pagesView.setA2Move(options.getBoolean(Options.PREF_A2MOVE, false));
+		this.pagesView.setA2Mode(options.getBoolean(Options.PREF_A2MODE, false));
 		this.pagesView.setMaxRefreshCnt(Options.getIntFromString(options, Options.PREF_REFRESH_FULL, 10));
 		
 		if (options.getBoolean(Options.PREF_KEEP_ON, false))
@@ -413,6 +415,7 @@ public class OpenFileActivity extends Activity implements SensorEventListener {
         this.pageNumberTextView.setTextColor(Options.getForeColor(colorMode));
         this.pdfPagesProvider.setGray(Options.isGray(this.colorMode));
         this.pdfPagesProvider.setGamma(Options.getIntFromString(options, Options.PREF_GAMMA, 3));
+        this.pdfPagesProvider.setThresh(Options.getIntFromString(options, Options.PREF_THRESH, 255));
         this.pdfPagesProvider.setExtraCache(1024*1024*Options.getIntFromString(options, Options.PREF_EXTRA_CACHE, 0));
         this.pdfPagesProvider.setOmitImages(options.getBoolean(Options.PREF_OMIT_IMAGES, false));
 		this.pagesView.setColorMode(this.colorMode);		

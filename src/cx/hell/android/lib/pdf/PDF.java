@@ -243,7 +243,7 @@ public class PDF {
 	 * @return bytes of bitmap in Androids format
 	 */
 	synchronized public native int[] renderPage(int n, int zoom, int left, int top, 
-			int rotation, boolean gray, boolean skipImages, PDF.Size rect, int igamma);
+			int rotation, boolean gray, boolean skipImages, PDF.Size rect, int igamma, int thresh);
 	
 	/**
 	 * Get PDF page size, store it in size struct, return error code.

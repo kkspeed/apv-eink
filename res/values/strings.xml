@@ -264,7 +264,10 @@
 	<string name="hw">Hardware Specific Settings</string>
 	<string name="eink">E-ink optimizations</string>
 	<string name="nook2">Nook2 fast e-ink refresh</string>
+	<string name="a2mode">A2(black/white) e-ink refresh</string>
+	<string name="a2move">Enable A2 Refresh During Move</string>
 	<string name="nook2_full">Nook2 full refresh pages</string>
+	<string name="thresh_filter">Filter Threshold</string>
 	<string name="xoffset">X Offset</string>
 	<string name="yoffset">Y Offset</string>
 	<string name="disabled">Disabled</string>

@@ -173,10 +173,23 @@
     	android:title="@string/nook2"
     	android:defaultValue="false"
     	android:key="nook2"/>
+    <CheckBoxPreference
+    	android:title="@string/a2move"
+    	android:defaultValue="false"
+    	android:key="a2move"/>
+    <CheckBoxPreference
+    	android:title="@string/a2mode"
+    	android:defaultValue="false"
+    	android:key="a2mode"/>
 	<EditTextPreference
 		android:title="@string/nook2_full"
 		android:defaultValue="10"
 		android:key="nook2Full"/>
+	<EditTextPreference
+		android:title="@string/thresh_filter"
+		android:defaultValue="255"
+		android:digits="0123456789"
+		android:key="threshValue"/>
     <PreferenceCategory
     android:title="@string/selector">
     <CheckBoxPreference

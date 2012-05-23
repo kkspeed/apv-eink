@@ -37,6 +37,8 @@ public class Options extends PreferenceActivity implements OnSharedPreferenceCha
 	public final static String PREF_RIGHT_UP_DOWN_PAIR = "rightUpDownPair";
 	public final static String PREF_EINK = "eink";
 	public final static String PREF_NOOK2 = "nook2";
+	public final static String PREF_A2MODE = "a2mode";
+	public final static String PREF_A2MOVE = "a2move";
 	public final static String PREF_REFRESH_FULL = "nook2Full";
 	public final static String PREF_KEEP_ON = "keepOn";
 	public final static String PREF_SHOW_ZOOM_ON_SCROLL = "showZoomOnScroll";
@@ -45,6 +47,7 @@ public class Options extends PreferenceActivity implements OnSharedPreferenceCha
 	public final static String PREF_LEFT_RIGHT_TAP_PAIR = "leftRightTapPair";
 	public final static String PREF_PREV_ORIENTATION = "prevOrientation";
 	public final static String PREF_GAMMA = "gammaValue";
+	public final static String PREF_THRESH = "threshValue";
 	
 	public final static int PAGE_NUMBER_DISABLED = 100;
 	public final static int ZOOM_BUTTONS_DISABLED = 100;

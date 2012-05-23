@@ -1,7 +1,13 @@
 A modification of apv pdfviewer:
 http://code.google.com/p/apv/
 
-It targets Android E-ink devices, specifically Nook2.
+It targets Android E-ink devices, specifically Nook2. Modified by Bruce Li.
+
+Personally speaking, this modification is just of my personal interest in the
+hope that we'll have a better pdf reader for Nook2, feel free to e-mail me if
+you're interested in it. 
+
+My E-mail: leilmyxwz@gmail.com
 
 I've added some features:
 1. Gamma adjustment
@@ -10,6 +16,9 @@ I've added some features:
 4. Left,Right Tap action definition
 5. Enlarged page number display
 6. Partial/Full Refresh settings
+7. Selectable A2 Mode during movement
+8. Built-in A2Mode support
+9. Watermark Removal
 
 The same as the original APV, it is licensed under GPL V3 or other compatible 
 licenses.
