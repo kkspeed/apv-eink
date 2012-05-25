@@ -253,16 +253,16 @@
 
 	<string name="volume_pair">Volume -/+ key actions</string>
 	<string name="up_down_pair">Up/Down key actions</string>
-	<string name="left_right_pair">Left/Right key actions</string>
 	<string name="zoom_pair">Zoom button actions</string>
 	<string name="long_zoom_pair">Long press zoom button actions</string>
 	<string name="right_up_down_pair">Nook Touch right up/down key actions</string>
 	<string name="top_bottom_tap_pair">Action for top/bottom tap</string>
-	<string name="left_right_tap_pair">Action for left/right tap</string>
+	<string name="right_tap_pair">Action for right inner/outer tap</string>
+	<string name="left_tap_pair">Action for left inner/outer tap</string>
 	<string name="default_volume_pair">1</string>
 	<string name="default_up_down_pair">1</string>
-	<string name="default_left_right_pair">2</string>
-	<string name="default_left_right_tap_pair">2</string>
+	<string name="default_right_tap_pair">9</string>
+	<string name="default_left_tap_pair">9</string>
 	<string name="default_zoom_pair">7</string>
 	<string name="default_long_zoom_pair">8</string>
 	<string name="default_right_up_down_pair">1</string>

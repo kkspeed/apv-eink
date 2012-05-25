@@ -42,6 +42,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -234,6 +235,8 @@ public class OpenFileActivity extends Activity implements SensorEventListener {
         this.textReflowScrollView.setFillViewport(true);
         
         this.textReflowTextView = new TextView(this);
+		this.textReflowTextView.setTextColor(Color.BLACK);
+		this.textReflowTextView.setBackgroundColor(Color.WHITE);
         
         LinearLayout textReflowButtonsLayout = new LinearLayout(this);
         textReflowButtonsLayout.setGravity(Gravity.CENTER);
@@ -1218,12 +1221,34 @@ public class OpenFileActivity extends Activity implements SensorEventListener {
     			Log.d(TAG, "onItemClick(" + parent + ", " + view + ", " + position + ", " + id);
     			TreeView treeView = (TreeView)parent;
     			TreeView.TreeNode treeNode = treeView.getTreeNodeAtPosition(position);
-    			Outline outline = (Outline) treeNode;
-    			int pageNumber = outline.page;
-    			OpenFileActivity.this.gotoPage(pageNumber);
-    			dialog.dismiss();
+				Outline outline = (Outline) treeNode;
+				if (!treeNode.hasChildren()) {
+					int pageNumber = outline.page;
+					OpenFileActivity.this.gotoPage(pageNumber);
+					dialog.dismiss();
+				} else {
+					if (tocTree.isOpen(treeNode)) {
+						tocTree.close(treeNode);
+					} else {
+						tocTree.open(treeNode);
+					}
+				}
     		}
     	});
+
+    	tocTree.setOnItemLongClickListener(new OnItemLongClickListener() {
+    		public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    			Log.d(TAG, "onItemLongClick(" + parent + ", " + view + ", " + position + ", " + id);
+    			TreeView treeView = (TreeView)parent;
+    			TreeView.TreeNode treeNode = treeView.getTreeNodeAtPosition(position);
+				Outline outline = (Outline) treeNode;
+				int pageNumber = outline.page;
+				OpenFileActivity.this.gotoPage(pageNumber);
+				dialog.dismiss();
+				return true;
+    		}
+    	});
+
     	contents.addView(tocTree, params);
     	dialog.setContentView(contents);
     	dialog.setOnDismissListener(new OnDismissListener() {

@@ -104,13 +104,6 @@
     	android:key="upDownPair"/>
 
     <ListPreference
-    	android:title="@string/left_right_pair"
-    	android:defaultValue="@string/default_left_right_pair"
-    	android:entries="@array/action_pair_labels"
-    	android:entryValues="@array/action_pairs"
-    	android:key="leftRightPair"/>
-
-    <ListPreference
     	android:title="@string/zoom_pair"
     	android:defaultValue="@string/default_zoom_pair"
     	android:entries="@array/action_pair_labels"
@@ -132,11 +125,18 @@
     	android:key="topBottomTapPair"/>
 
     <ListPreference
-    	android:title="@string/left_right_tap_pair"
-    	android:defaultValue="@string/default_left_right_tap_pair"
+    	android:title="@string/left_tap_pair"
+    	android:defaultValue="@string/default_left_tap_pair"
     	android:entries="@array/action_pair_labels"
     	android:entryValues="@array/action_pairs"
-    	android:key="leftRightTapPair"/>
+    	android:key="leftTapPair"/>
+
+    <ListPreference
+    	android:title="@string/right_tap_pair"
+    	android:defaultValue="@string/default_right_tap_pair"
+    	android:entries="@array/action_pair_labels"
+    	android:entryValues="@array/action_pairs"
+    	android:key="rightTapPair"/>
 
     <ListPreference
     	android:title="@string/extra_cache"

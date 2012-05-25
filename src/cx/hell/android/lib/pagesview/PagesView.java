@@ -904,13 +904,25 @@ public class PagesView extends View implements
 
 		if (downX <= this.width * 0.15){
 			if (event.getAction() == MotionEvent.ACTION_DOWN)
-				doAction(actions.getAction(Actions.LEFT_TAP));
+				doAction(actions.getAction(Actions.LEFT_TAP_OUTER));
+			return true;
+		}
+
+		if (downX > this.width * 0.15 && downX <= this.width * 0.30) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN)
+				doAction(actions.getAction(Actions.LEFT_TAP_INNER));
 			return true;
 		}
 
 		if (downX >= this.width * 0.85) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN)
-				doAction(actions.getAction(Actions.RIGHT_TAP));
+				doAction(actions.getAction(Actions.RIGHT_TAP_OUTER));
+			return true;
+		}
+
+		if (downX >= this.width * 0.70 && downX < this.width * 0.85) {
+			if (event.getAction() == MotionEvent.ACTION_DOWN)
+				doAction(actions.getAction(Actions.RIGHT_TAP_INNER));
 			return true;
 		}
 

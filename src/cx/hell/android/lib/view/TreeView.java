@@ -226,6 +226,7 @@ public class TreeView extends ListView {
 		
 	}
 
+	private TreeAdapter treeAdapter;
 	/**
 	 * Set contents.
 	 * @param root root (first top level node) of tree
@@ -236,6 +237,7 @@ public class TreeView extends ListView {
 		this.state = new HashMap<Long, Boolean>();
 		TreeAdapter adapter = new TreeAdapter(this);
 		this.setAdapter(adapter);
+		this.treeAdapter = adapter;
 	}
 	
 	/**
@@ -255,18 +257,22 @@ public class TreeView extends ListView {
 	
 	public synchronized void open(TreeNode node) {
 		this.open(node.getId());
+		this.treeAdapter.notifyDataSetChanged();
 	}
 	
 	public synchronized void open(long id) {
 		this.state.put(id, true);
+		this.treeAdapter.notifyDataSetChanged();
 	}
 	
 	public synchronized void close(TreeNode node) {
 		this.close(node.getId());
+		this.treeAdapter.notifyDataSetChanged();
 	}
 	
 	public synchronized void close(long id) {
 		this.state.remove(id);
+		this.treeAdapter.notifyDataSetChanged();
 	}
 	
 	/**

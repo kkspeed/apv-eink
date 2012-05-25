@@ -8,10 +8,10 @@ public class Actions {
 	public int longZoom;
 	public int upDown;
 	public int volume;
-	public int leftRight;
 	public int rightUpDown;
 	public int topBottomTap;
-	public int leftRightTap;
+	public int leftTapPair;
+	public int rightTapPair;
 
 	public static final int ZOOM_IN = 1000000;
 	public static final int ZOOM_OUT = 1000001;
@@ -19,8 +19,10 @@ public class Actions {
 	public static final int LONG_ZOOM_OUT = 1000003;
 	public static final int TOP_TAP = 1000004;
 	public static final int BOTTOM_TAP = 1000005;
-	public static final int LEFT_TAP = 1000006;
-	public static final int RIGHT_TAP = 1000007;
+	public static final int LEFT_TAP_OUTER = 1000006;
+	public static final int LEFT_TAP_INNER = 1000007;
+	public static final int RIGHT_TAP_INNER = 1000008;
+	public static final int RIGHT_TAP_OUTER = 1000009;
 	
 	public final static int ACTION_NONE = 0;
 	public final static int ACTION_SCREEN_DOWN = 1;
@@ -47,10 +49,10 @@ public class Actions {
 		this.longZoom = Integer.parseInt(pref.getString(Options.PREF_LONG_ZOOM_PAIR, ""+Options.PAIR_ZOOM_2000));
 		this.upDown = Integer.parseInt(pref.getString(Options.PREF_UP_DOWN_PAIR, ""+Options.PAIR_SCREEN));
 		this.volume = Integer.parseInt(pref.getString(Options.PREF_VOLUME_PAIR, ""+Options.PAIR_SCREEN));
-		this.leftRight = Integer.parseInt(pref.getString(Options.PREF_UP_DOWN_PAIR, ""+Options.PAIR_PAGE));
 		this.rightUpDown = Integer.parseInt(pref.getString(Options.PREF_RIGHT_UP_DOWN_PAIR, ""+Options.PAIR_SCREEN));
 		this.topBottomTap = Integer.parseInt(pref.getString(Options.PREF_TOP_BOTTOM_TAP_PAIR, ""+Options.PAIR_NONE));
-		this.leftRightTap = Integer.parseInt(pref.getString(Options.PREF_LEFT_RIGHT_TAP_PAIR, ""+Options.PAIR_NONE));
+		this.rightTapPair = Integer.parseInt(pref.getString(Options.PREF_RIGHT_TAP_PAIR, ""+Options.PAIR_NONE));
+		this.leftTapPair = Integer.parseInt(pref.getString(Options.PREF_LEFT_TAP_PAIR, ""+Options.PAIR_NONE));
 	}
 	
 	public static float getZoomValue(int action) {
@@ -121,10 +123,14 @@ public class Actions {
 			return getAction(this.topBottomTap, 0);
 		case BOTTOM_TAP:
 			return getAction(this.topBottomTap, 1);
-		case LEFT_TAP:
-			return getAction(this.leftRightTap, 0);
-		case RIGHT_TAP:
-			return getAction(this.leftRightTap, 1);
+		case LEFT_TAP_INNER:
+			return getAction(this.leftTapPair, 0);
+		case LEFT_TAP_OUTER:
+			return getAction(this.leftTapPair, 1);
+		case RIGHT_TAP_INNER:
+			return getAction(this.rightTapPair, 0);
+		case RIGHT_TAP_OUTER:
+			return getAction(this.rightTapPair, 1);
 		case ZOOM_OUT:
 			return getAction(this.zoom, 0);
 		case ZOOM_IN:
@@ -147,10 +153,6 @@ public class Actions {
 		case 93:
 		case KeyEvent.KEYCODE_DPAD_DOWN:
 			return getAction(this.upDown, 1);
-		case KeyEvent.KEYCODE_DPAD_LEFT:
-			return getAction(this.leftRight, 0);
-		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			return getAction(this.leftRight, 1);
 		default:
 			return ACTION_NONE;
 		}
